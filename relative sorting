@@ -1,0 +1,56 @@
+import java.util.*;
+
+public class RelativeSortingHeap {
+
+    // Function to sort arr according to order[] using a min-heap
+    public static int[] relativeSort(int[] arr, int[] order) {
+
+        // Step 1: Count frequencies of elements in arr
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int x : arr) {
+            freq.put(x, freq.getOrDefault(x, 0) + 1);
+        }
+
+        // Result array
+        int[] res = new int[arr.length];
+        int idx = 0;
+
+        // Step 2: Place elements that appear in 'order'
+        for (int x : order) {
+            int c = freq.getOrDefault(x, 0);
+            for (int i = 0; i < c; i++) {
+                res[idx++] = x;
+            }
+            freq.remove(x); // remove them so remaining can be handled later
+        }
+
+        // Step 3: Min-heap for remaining elements
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        for (int key : freq.keySet()) {
+            heap.offer(key); // heap sorts automatically
+        }
+
+        // Step 4: Add remaining elements in sorted order
+        while (!heap.isEmpty()) {
+            int val = heap.poll();     // smallest element
+            int c = freq.get(val);     // its frequency
+            for (int i = 0; i < c; i++) {
+                res[idx++] = val;
+            }
+        }
+
+        return res;
+    }
+
+    // Main method to test the code
+    public static void main(String[] args) {
+
+        int[] arr = {2, 1, 2, 5, 7, 1, 9, 3, 6, 8, 8};
+        int[] order = {2, 1, 8, 3};
+
+        int[] result = relativeSort(arr, order);
+
+        System.out.println("Relative Sorted Output:");
+        System.out.println(Arrays.toString(result));
+    }
+}
