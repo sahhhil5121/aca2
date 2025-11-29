@@ -1,0 +1,28 @@
+import java.util.*;
+
+public class MinMaxHeapExample {
+    public static void main(String[] args) {
+        // Min heap: smallest element at top
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        minHeap.add(5);
+        minHeap.add(1);
+        minHeap.add(10);
+
+        System.out.println("Min-heap:");
+        while (!minHeap.isEmpty()) {
+            System.out.print(minHeap.poll() + " "); // 1 5 10
+        }
+        System.out.println();
+
+        // Max heap: largest element at top
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        maxHeap.add(5);
+        maxHeap.add(1);
+        maxHeap.add(10);
+
+        System.out.println("Max-heap:");
+        while (!maxHeap.isEmpty()) {
+            System.out.print(maxHeap.poll() + " "); // 10 5 1
+        }
+    }
+}
