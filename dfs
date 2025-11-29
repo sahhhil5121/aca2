@@ -1,0 +1,49 @@
+import java.util.*;
+
+public class DFSExample {
+
+    static ArrayList<ArrayList<Integer>> adj; // adjacency list
+    static boolean[] visited; // visited array
+
+    // Depth First Search function
+    public static void dfs(int node) {
+        visited[node] = true;
+        System.out.print(node + " ");
+
+        for (int neigh : adj.get(node)) {
+            if (!visited[neigh]) {
+                dfs(neigh); // recursive call
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+
+        int n = 5; // number of nodes (0 to 4)
+
+        // Initialize adjacency list
+        adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        // Create an undirected graph
+        adj.get(0).add(1);
+        adj.get(1).add(0);
+
+        adj.get(0).add(2);
+        adj.get(2).add(0);
+
+        adj.get(1).add(3);
+        adj.get(3).add(1);
+
+        adj.get(2).add(4);
+        adj.get(4).add(2);
+
+        // Initialize visited array
+        visited = new boolean[n];
+
+        System.out.print("DFS starting from node 0: ");
+        dfs(0);
+    }
+}
